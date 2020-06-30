@@ -3,7 +3,12 @@
     "version": "0.0.1",
     "description": "Event Store Node Client (Based on REST API)",
     "main": "src/index.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/katesclau/event-store-node"
+    },
     "scripts": {
+        "build": "tsc",
         "test": "echo \"Error: no test specified\" && exit 1",
         "prettify": "pretty-quick --staged"
     },
