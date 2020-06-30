@@ -25,6 +25,7 @@
         "nodejs"
     ],
     "jest": {
+        "roots": ["<rootDir>"],
         "transform": {
             "^.+\\.ts$": "ts-jest"
         },
@@ -34,6 +35,9 @@
             "js",
             "json",
             "node"
+        ],
+        "modulePaths": [
+            "<rootDir>/@types/"
         ]
     },
     "author": "Diego Ferreira",

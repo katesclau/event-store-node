@@ -8,11 +8,11 @@ export  interface EventStoreHeaders {
     [key: string]: string
 }
   
-export interface IEventStoreProvider {
+export interface IEventStoreClient {
     [key: string]: any
 }
 
-export interface IEventPaginationType {
-    page: number
-    size: number
+export enum Direction {
+    ASC = "forward",
+    DESC = "backward"
 }

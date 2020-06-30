@@ -1,6 +1,6 @@
 import { v4 as uuid} from 'uuid'
 import axios from 'axios'
-import { IEventStoreProvider as IEventStoreClient, EventStoreOptions, EventStoreHeaders } from '../../@types/eventStore'
+import { IEventStoreClient, EventStoreOptions, EventStoreHeaders, Direction } from '../../@types/eventStore'
 
 export default class EventStoreClient implements IEventStoreClient {
   private options: EventStoreOptions
@@ -50,18 +50,20 @@ export default class EventStoreClient implements IEventStoreClient {
     eventStreamName: string,
     size: number = 10,
     page: number = 0,
+    direction?: Direction,
   ) {
     let pointer: number | string = 'head'
     if (page) {
       pointer = page*size
     }
+    const pagination = direction ? `/${pointer}/${direction}/${size}` : ''
     return axios({
       method: 'get',
       ...this.options,
       headers: {
         ...this.headers,
       },
-      url: `${this.options.url}/streams/${eventStreamName}/${pointer}/backward/${size}?embed=body`,
+      url: `${this.options.url}/streams/${eventStreamName}${pagination}?embed=body`,
     })
   }
 }
