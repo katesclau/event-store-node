@@ -23,8 +23,8 @@ export default class EventStoreClient implements IEventStoreClient {
   }
 
   public postEvent(
-    eventType: string,
     eventStreamName: string,
+    eventType: string,
     data: any,
   ) {
     const { timestamp } = data
