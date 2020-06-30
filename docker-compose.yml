@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  eventstore:
+    image: eventstore/eventstore:latest
+    ports:
+      - 1113:1113
+      - 2113:2113
+    restart: always
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -sf http://localhost:2113/stats || exit 1']
+      interval: 5s
+      timeout: 2s

@@ -1,12 +1,12 @@
 import { v4 as uuid} from 'uuid'
 import axios from 'axios'
-import { IEventStoreProvider, EventStoreOptions, EventStoreHeaders } from '../../@types/eventStore'
+import { IEventStoreProvider as IEventStoreClient, EventStoreOptions, EventStoreHeaders } from '../../@types/eventStore'
 
-export default class EventStoreProvider implements IEventStoreProvider {
+export default class EventStoreClient implements IEventStoreClient {
   private options: EventStoreOptions
   private headers: EventStoreHeaders = {}
 
-  protected constructor(options: EventStoreOptions) {
+  public constructor(options: EventStoreOptions) {
     this.options = options
     this.updateHeaders(options)
   }
@@ -22,7 +22,7 @@ export default class EventStoreProvider implements IEventStoreProvider {
     }
   }
 
-  private postEvent(
+  public postEvent(
     eventType: string,
     eventStreamName: string,
     data: any,
@@ -46,7 +46,7 @@ export default class EventStoreProvider implements IEventStoreProvider {
     })
   }
 
-  private getEvents(
+  public getEvents(
     eventStreamName: string,
     size: number = 10,
     page: number = 0,

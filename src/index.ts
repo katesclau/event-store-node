@@ -1,2 +1,2 @@
-import EventStoreProvider from "./client";
-export default EventStoreProvider
+import EventStoreClient from "./client";
+export default EventStoreClient
