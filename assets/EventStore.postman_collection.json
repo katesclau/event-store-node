@@ -1,0 +1,3077 @@
+{
+	"info": {
+		"_postman_id": "fd31a9b6-69d1-4e2f-b659-944bdaee366c",
+		"name": "EventStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Access Control Lists",
+			"item": [
+				{
+					"name": "Set Stream ACL",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.eventstore.events+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"eventId\": \"00000000-0000-0000-0000-000000000001\",\r\n    \"eventType\": \"account-updated\",\r\n    \"data\": {\r\n     \"$acl\" : {\r\n        \"$w\"  : \"$admins\",\r\n        \"$r\"  : [\"test\"],\r\n        \"$d\"  : \"$admins\",\r\n        \"$mw\" : \"$admins\",\r\n        \"$mr\" : \"$admins\"\r\n     }\r\n  }\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream/metadata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream",
+								"metadata"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Competing Consumers",
+			"item": [
+				{
+					"name": "Create Persistent Subscription",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"namedConsumerStrategy\": \"RoundRobin\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:stream/:subscription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":stream",
+								":subscription"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								},
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Persistent Subscription",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"namedConsumerStrategy\": \"RoundRobin\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:stream/:subscription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":stream",
+								":subscription"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								},
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Persistent Subscription",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:stream/:subscription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":stream",
+								":subscription"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								},
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read via Persistent Subscription",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.competingatom+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:stream/:subscription?embed=body",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":stream",
+								":subscription"
+							],
+							"query": [
+								{
+									"key": "embed",
+									"value": "body"
+								}
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": "singleevent"
+								},
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read via Persistent Subscription (Multiple Events)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.competingatom+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:stream/:subscription/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":stream",
+								":subscription",
+								"2"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								},
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read via Persistent Subscription (Embedded Events)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.competingatom+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:stream/:subscription/2?embed=body",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":stream",
+								":subscription",
+								"2"
+							],
+							"query": [
+								{
+									"key": "embed",
+									"value": "body"
+								}
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								},
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ack Multiple Messages",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:stream/:subscription/ack?ids=2ea10280-5f84-4821-9c5e-82350bc19958,00f128b2-f7a9-481e-a5bf-7f5f95569f41",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":stream",
+								":subscription",
+								"ack"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "2ea10280-5f84-4821-9c5e-82350bc19958,00f128b2-f7a9-481e-a5bf-7f5f95569f41"
+								}
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								},
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Replaying Parked Messages",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:stream/:subscription/replayParked",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":stream",
+								":subscription",
+								"replayParked"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								},
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Subscription Information",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/subscriptions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stream Subscription Information",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:subscription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":subscription"
+							],
+							"variable": [
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subscription Information",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/subscriptions/:stream/:subscription/info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"subscriptions",
+								":stream",
+								":subscription",
+								"info"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								},
+								{
+									"key": "subscription",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Deleting a Stream",
+			"item": [
+				{
+					"name": "Delete Stream",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hard Delete Stream",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "ES-HardDelete",
+								"value": "true"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Projections",
+			"item": [
+				{
+					"name": "All Projections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projections/any",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projections",
+								"any"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Non-Transient Projections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projections/all-non-transient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projections",
+								"all-non-transient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Transient Projections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projections/transient",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projections",
+								"transient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All One-Time Projections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projections/onetime",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projections",
+								"onetime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Continuous Projections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projections/continuous",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projections",
+								"continuous"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Transient Projection",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "fromCategory('account')\r\n.when({\r\n   '$init': function() {\r\n        return {\r\n            totalCredits: 0,\r\n            totalDebits: 0\r\n        };\r\n   },\r\n   'AccountCredited': function (s, e) {\r\n       s.totalCredits += 1;\r\n   },\r\n   'AccountDebited': function (s, e) {\r\n       s.totalDebits += 1;\r\n   }\r\n});"
+						},
+						"url": {
+							"raw": "http://localhost:2113/projections/transient?name=test&type=js&enabled=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projections",
+								"transient"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test"
+								},
+								{
+									"key": "type",
+									"value": "js"
+								},
+								{
+									"key": "enabled",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Continuous Projection",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "fromCategory('account')\n.when({\n    'AccountDebited': function(s, e) {\n        linkTo('debits', e);\n    }\n});\n"
+						},
+						"url": {
+							"raw": "http://localhost:2113/projections/continuous?name=debits&type=js&enabled=true&emit=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projections",
+								"continuous"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "debits"
+								},
+								{
+									"key": "type",
+									"value": "js"
+								},
+								{
+									"key": "enabled",
+									"value": "true"
+								},
+								{
+									"key": "emit",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create One-Time Projection",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "fromCategory('account')\n.when({\n    'AccountCredited': function(s, e) {\n        linkTo('credits', e);\n    }\n})\n.outputState();\n"
+						},
+						"url": {
+							"raw": "http://localhost:2113/projections/onetime?name=credits&type=js&enabled=true&emit=true&checkpoints=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projections",
+								"onetime"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "credits"
+								},
+								{
+									"key": "type",
+									"value": "js"
+								},
+								{
+									"key": "enabled",
+									"value": "true"
+								},
+								{
+									"key": "emit",
+									"value": "true"
+								},
+								{
+									"key": "checkpoints",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection"
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projection Query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection/query?config=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection",
+								"query"
+							],
+							"query": [
+								{
+									"key": "config",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projection Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection/statistics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection",
+								"statistics"
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projection State",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection/state",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection",
+								"state"
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projection Result",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection/state",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection",
+								"state"
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Projection Query",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "fromCategory('account')\n.when({\n    'AccountDebited': function(s, e) {\n        linkTo('debits2', e);\n    }\n});\n"
+						},
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection/query?type=js&emit=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection",
+								"query"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "js"
+								},
+								{
+									"key": "emit",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Disable Projection",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection/command/disable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection",
+								"command",
+								"disable"
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable Projection",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection/command/enable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection",
+								"command",
+								"enable"
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Projection",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection/command/reset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection",
+								"command",
+								"reset"
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Abort Projection",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection/command/abort",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection",
+								"command",
+								"abort"
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Projection",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:2113/projection/:projection?deleteStateStream=true&deleteCheckpointStream=true&deleteEmittedStreams=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"projection",
+								":projection"
+							],
+							"query": [
+								{
+									"key": "deleteStateStream",
+									"value": "true"
+								},
+								{
+									"key": "deleteCheckpointStream",
+									"value": "true"
+								},
+								{
+									"key": "deleteEmittedStreams",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "projection",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reading Streams and Events",
+			"item": [
+				{
+					"name": "Read All Events",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.atom+json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/%24all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"%24all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Stream",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.atom+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Stream (Embedded Events - Rich)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.atom+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream?embed=rich",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream"
+							],
+							"query": [
+								{
+									"key": "embed",
+									"value": "rich"
+								}
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Stream (Embedded Events - Body)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.atom+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream?embed=body",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream"
+							],
+							"query": [
+								{
+									"key": "embed",
+									"value": "body"
+								}
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Conditional Get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.atom+json"
+							},
+							{
+								"key": "If-None-Match",
+								"value": "110;-2060438500"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Stream Page",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.atom+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream/0/forward/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream",
+								"0",
+								"forward",
+								"20"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Event",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.atom+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream/0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream",
+								"0"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Scavenge",
+			"item": [
+				{
+					"name": "List Scavenges",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/%24scavenges",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"%24scavenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Scavenge",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:2113/admin/scavenge",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"admin",
+								"scavenge"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Statistics",
+			"item": [
+				{
+					"name": "Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/stats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TCP Connections",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/stats/tcp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"stats",
+								"tcp"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Stream Metadata",
+			"item": [
+				{
+					"name": "Read Stream Metadata",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.atom+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream/metadata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream",
+								"metadata"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Write Stream Metadata",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.eventstore.events+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"eventId\": \"00000000-0000-0000-0000-000000000002\",\r\n    \"eventType\": \"account-updated\",\r\n    \"data\": { \"someOtherMetaData\": \"1\" }\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream/metadata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream",
+								"metadata"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "List Users",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.eventstore.atom+json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2113/streams/%24users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"%24users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"loginName\":\"test\",\n  \"fullName\":\"test\",\n  \"password\":\"password\",\n  \"role\":\"$admins\",\n  \"groups\":[\"$admins\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Disable User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:2113/users/:user/command/disable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"users",
+								":user",
+								"command",
+								"disable"
+							],
+							"variable": [
+								{
+									"key": "user",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:2113/users/:user/command/enable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"users",
+								":user",
+								"command",
+								"enable"
+							],
+							"variable": [
+								{
+									"key": "user",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:2113/users/:user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"users",
+								":user"
+							],
+							"variable": [
+								{
+									"key": "user",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"newPassword\":\"password\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/users/:user/command/reset-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"users",
+								":user",
+								"command",
+								"reset-password"
+							],
+							"variable": [
+								{
+									"key": "user",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "changeit",
+									"type": "string"
+								},
+								{
+									"key": "saveHelperData",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\":\"testupdated\",\n  \"groups\":[\"$ops\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/users/:user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"users",
+								":user"
+							],
+							"variable": [
+								{
+									"key": "user",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Writing to a Stream",
+			"item": [
+				{
+					"name": "Single Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ES-EventType",
+								"value": "SomeEvent"
+							},
+							{
+								"key": "ES-EventId",
+								"value": "00000000-0000-0000-0000-000000000008"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/:stream",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								":stream"
+							],
+							"variable": [
+								{
+									"key": "stream",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Batch Writes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.eventstore.events+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"eventId\": \"00000000-0000-0000-0000-000000000001\",\r\n    \"eventType\": \"event-type\",\r\n    \"data\": { \"a\": \"1\" }\r\n  },\r\n  {\r\n    \"eventId\": \"00000000-0000-0000-0000-000000000002\",\r\n    \"eventType\": \"event-type\",\r\n    \"data\": { \"a\": \"1\" }\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/batchwrites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"batchwrites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Store Events Media Type (JSON)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.eventstore.events+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"eventId\": \"00000000-0000-0000-0000-000000000001\",\r\n    \"eventType\": \"event-type\",\r\n    \"data\": { \"a\": \"1\" }\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/eventsmediatypejson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"eventsmediatypejson"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Metadata",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.eventstore.events+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"eventId\": \"00000000-0000-0000-0000-000000000001\",\r\n    \"eventType\": \"event-type\",\r\n    \"data\": { \"a\": \"1\" },\r\n    \"metadata\": { \"something\": 2 }\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/eventmetadata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"eventmetadata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Store Events Media Type (XML)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.eventstore.events+xml"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<Events>\r\n  <Event>\r\n    <EventId>00000000-0000-0000-0000-000000000001</EventId>\r\n    <EventType>event-type</EventType>\r\n    <Data>\r\n      <MyEvent>\r\n        <Something>1</Something>\r\n      </MyEvent>\r\n    </Data>\r\n  </Event>\r\n</Events>"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/eventsmediatypexml",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"eventsmediatypexml"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Data Only Events",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream"
+							},
+							{
+								"key": "ES-EventType",
+								"value": "rawDataType"
+							},
+							{
+								"key": "ES-EventId",
+								"value": "00000000-0000-0000-0000-000000000001"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "SGVsbG8gV29ybGQ="
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/dataonlyevents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"dataonlyevents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expected Version",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ES-EventType",
+								"value": "SomeEvent"
+							},
+							{
+								"key": "ES-EventId",
+								"value": "00000000-0000-0000-0000-000000000001"
+							},
+							{
+								"key": "ES-ExpectedVersion",
+								"value": "300"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"something\": \"has data\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/expectedversion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"expectedversion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expected Version (Empty Stream Should Exist)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ES-EventType",
+								"value": "SomeEvent"
+							},
+							{
+								"key": "ES-EventId",
+								"value": "00000000-0000-0000-0000-000000000001"
+							},
+							{
+								"key": "ES-ExpectedVersion",
+								"value": "0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"something\": \"has data\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/expectedversionemptystream",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"expectedversionemptystream"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expected Version (Stream Should Not Exist)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ES-EventType",
+								"value": "SomeEvent"
+							},
+							{
+								"key": "ES-EventId",
+								"value": "00000000-0000-0000-0000-000000000001"
+							},
+							{
+								"key": "ES-ExpectedVersion",
+								"value": "-1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"something\": \"has data\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/expectedversionnostream",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"expectedversionnostream"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expected Version (Never Conflict)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ES-EventType",
+								"value": "SomeEvent"
+							},
+							{
+								"key": "ES-EventId",
+								"value": "00000000-0000-0000-0000-000000000001"
+							},
+							{
+								"key": "ES-ExpectedVersion",
+								"value": "-2"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"something\": \"has data\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:2113/streams/expectedversionneverconflict",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2113",
+							"path": [
+								"streams",
+								"expectedversionneverconflict"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Description Document",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.eventstore.streamdesc+json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:2113/streams/account-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2113",
+					"path": [
+						"streams",
+						"account-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configuration Options",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+					}
+				],
+				"url": {
+					"raw": "http://localhost:2113/info/options",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2113",
+					"path": [
+						"info",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Node Information",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:2113/info",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "2113",
+					"path": [
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:2113/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2113",
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Gossip",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "changeit",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46Y2hhbmdlaXQ="
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:2113/info",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "2113",
+					"path": [
+						"info"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "changeit",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5baafa8e-c3fc-4d29-92ab-f7aa4383e35e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a928ee66-9858-444f-b2bf-ef9df5638e91",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
