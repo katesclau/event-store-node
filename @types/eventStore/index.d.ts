@@ -12,9 +12,21 @@ export interface IEventStoreClient {
     [key: string]: any
 }
 
-export enum Direction {
+export const enum Direction {
     ASC = 'forward',
     DESC = 'backward'
+}
+
+export const enum UserRole {
+    ADMIN = '$admins',
+    OPS = '$ops',
+}
+export interface UserCreateInput {
+    loginName: string
+    fullName: string
+    password: string
+    role?: UserRole
+    groups: string[]
 }
 
 export interface Entry {

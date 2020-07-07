@@ -1,12 +1,33 @@
-import { v4 as uuid} from 'uuid'
 import axios, { AxiosPromise } from 'axios'
 import Observable from 'zen-observable'
-import { IEventStoreClient, EventStoreOptions, EventStoreHeaders, Direction, Entry } from '../../@types/eventStore'
+import { IEventStoreClient, EventStoreOptions, EventStoreHeaders, Entry } from '../../@types/eventStore'
+import users from './users/getUsers'
+import postEvent from './events/postEvent'
+import ack from './subscriptions/ack'
+import subscribe from './subscriptions/subscribe'
+import delEventStream from './streams/delEventStream'
+import getEvents from './events/getEvents'
+import createUser from './users/createUser'
 
 export default class EventStoreClient implements IEventStoreClient {
   private options: EventStoreOptions
   private headers: EventStoreHeaders = {}
   private DEFAULT_INTERVAL: number = 1000;
+
+  // User Management
+  public users = users
+  public createUser = createUser
+
+  // Events
+  public postEvent = postEvent
+  public getEvents = getEvents
+
+  // Streams
+  public delEventStream = delEventStream
+
+  // Subscriptions
+  public ack = ack
+  public subscribe = subscribe
 
   public constructor(options: EventStoreOptions) {
     this.options = options
@@ -22,100 +43,6 @@ export default class EventStoreClient implements IEventStoreClient {
       'Content-Type': 'application/json',
       Authorization,
     }
-  }
-
-  public postEvent(
-    eventStreamName: string,
-    eventType: string,
-    data: any,
-  ): AxiosPromise {
-    const { timestamp } = data
-    const id = uuid()
-    return axios({
-      method: 'post',
-      ...this.options,
-      headers: {
-        'ES-EventType': eventType,
-        'ES-EventId': id,
-        ...this.headers,
-      },
-      data: { // Axios data
-        id,
-        ...data,
-        timestamp: timestamp ?  BigInt(timestamp) : new Date().getTime(),
-      },
-      url: `${this.options.url}/streams/${eventStreamName}`,
-    })
-  }
-
-  public getEvents(
-    eventStreamName: string,
-    size: number = 10,
-    page: number = 0,
-    direction?: Direction,
-  ): AxiosPromise {
-    let pointer: number | string = 'head'
-    if (page) {
-      pointer = page*size
-    }
-    const pagination = direction ? `/${pointer}/${direction}/${size}` : ''
-    return axios({
-      method: 'get',
-      ...this.options,
-      headers: {
-        ...this.headers,
-      },
-      url: `${this.options.url}/streams/${eventStreamName}${pagination}?embed=body`,
-    })
-  }
-
-  public ack(
-    eventStreamName: string, 
-    subscriberName: string, 
-    ids: string[],
-  ): AxiosPromise {
-    return axios({
-      method: 'post',
-      ...this.options,
-      headers: {
-        ...this.headers,
-      },
-      url: `${this.options.url}/subscriptions/${eventStreamName}/${subscriberName}/ack?ids=${ids.join(',')}`,
-    })
-  }
-  
-  delEventStream(eventStreamName: string, hard: boolean = false) {
-    return axios({
-      method: 'delete',
-      ...this.options,
-      headers: {
-        ...this.headers,
-        ...(hard ? {
-          'ES-HardDelete': 'true'
-        } : {})
-      },
-      url: `${this.options.url}/streams/${eventStreamName}`,
-    })
-  }
-
-  public async subscribe(
-    eventStreamName: string, 
-    subscriberName: string, 
-    next: (event: Entry[]) => void,
-    error: (error: any) => void = () => {},
-    complete: () => void = () => {},
-    interval: number = this.DEFAULT_INTERVAL,
-  ): Promise<ZenObservable.Subscription> {
-
-    if(!(await this.createSubscription(eventStreamName, subscriberName))){
-      throw new Error('Failed to create Subscription on Event Store');
-    }
-
-    return this.getObservable(eventStreamName, subscriberName, interval).subscribe({
-      next,
-      error,
-      complete
-    });
   }
   
   private async createSubscription(eventStreamName: string, subscriberName: string): Promise<boolean> {
