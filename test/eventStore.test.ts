@@ -63,7 +63,7 @@ describe('Subscriptions', () => {
         expect(entries[0]?.eventType).toBe(EVENT_TYPE);
         const response = await client.ack(
           STREAM_NAME,
-          'SECONDE_SUBSCRIBER',
+          'FIRST_SUBSCRIBER',
           entries.map((entry: Entry) => entry.eventId)
         );
         expect(response.status).toBe(202);
@@ -72,7 +72,7 @@ describe('Subscriptions', () => {
         console.log(error);
       },
       () => {
-        console.log('SECONDE_SUBSCRIBER closed');
+        console.log('FIRST_SUBSCRIBER closed');
       }
     );
 
