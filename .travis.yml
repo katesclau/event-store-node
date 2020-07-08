@@ -11,9 +11,6 @@ cache:
     - coverage
     - lib
 
-services:
-  - docker
-
 script: echo "Running tests against $(node -v) ..."
 
 branches:

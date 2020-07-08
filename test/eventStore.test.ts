@@ -5,13 +5,12 @@ import { Entry, UserCreateInput, Direction, UserRole } from '../@types/eventStor
 
 const options = {
   url: 'http://localhost:2113',
-  user: 'admin',
-  password: 'changeit',
+  user: process.env?.EVENTSTORE_USER ?? 'admin',
+  password: process.env?.EVENTSTORE_PASSWORD ?? 'changeit',
 };
 const client = new EventStoreClient(options);
 const STREAM_NAME = 'streamName';
 const EVENT_TYPE = 'jsonMessageEvent';
-const DEFAULT_PASSWORD = 'test1234';
 
 describe('Events', () => {
   test('[POST Single Event]', async () => {
@@ -118,7 +117,7 @@ describe('Users', () => {
   const userCreateInput: UserCreateInput = {
     loginName: 'testUser',
     fullName: 'Test User',
-    password: process?.env?.USER_PASSWORD || DEFAULT_PASSWORD,
+    password: process?.env?.USER_PASSWORD ?? 'test1234',
     role: UserRole.OPS,
     groups: ['test', '$readers', '$writers'],
   };
