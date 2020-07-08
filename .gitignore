@@ -108,3 +108,5 @@ dist
 .vscode-test
 
 lib
+
+.env.test

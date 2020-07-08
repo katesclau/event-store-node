@@ -15,10 +15,8 @@ services:
   - docker
 
 before_install:
-  - docker-compose pull
   - docker-compose up
-  - docker-compose --version
-  - docker ps
+  - ./wait_for_eventstore.sh
 
 script: echo "Running tests against $(node -v) ..."
 

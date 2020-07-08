@@ -5,3 +5,6 @@ tests
 assets
 README.md
 .prettierrc
+wait_for_eventstore.sh
+jest.config.json
+docker-compose.yml
