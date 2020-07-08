@@ -5,6 +5,7 @@ import {
   EventStoreOptions,
   EventStoreHeaders,
   Entry,
+  EventStoreCredentials,
 } from '../../@types/eventStore';
 import users from './users/users';
 import postEvent from './events/postEvent';
@@ -13,6 +14,12 @@ import subscribe from './subscriptions/subscribe';
 import delEventStream from './streams/delEventStream';
 import getEvents from './events/getEvents';
 import createUser from './users/createUser';
+import getUser from './users/getUser';
+import disableUser from './users/disableUser';
+import enableUser from './users/enableUser';
+import updateUser from './users/updateUser';
+import updateUserPassword from './users/updateUserPassword';
+import deleteUser from './users/deleteUser';
 
 export default class EventStoreClient implements IEventStoreClient {
   private options: EventStoreOptions;
@@ -21,7 +28,13 @@ export default class EventStoreClient implements IEventStoreClient {
 
   // User Management
   public users = users;
+  public getUser = getUser;
   public createUser = createUser;
+  public deleteUser = deleteUser;
+  public disableUser = disableUser;
+  public enableUser = enableUser;
+  public updateUser = updateUser;
+  public updateUserPassword = updateUserPassword;
 
   // Events
   public postEvent = postEvent;
@@ -39,7 +52,16 @@ export default class EventStoreClient implements IEventStoreClient {
     this.updateHeaders(options);
   }
 
-  private updateHeaders(options: EventStoreOptions) {
+  setCredentials(credentials: EventStoreCredentials) {
+    this.options = {
+      ...this.options,
+      ...credentials,
+    };
+    this.updateHeaders();
+    return this;
+  }
+
+  private updateHeaders(options: EventStoreOptions = this.options) {
     this.options = options;
     var Authorization = `Basic ${new Buffer(
       `${this.options.user}:${this.options.password}`

@@ -7,12 +7,19 @@ import {
   Direction,
   UserRole,
   EventStoreOptions,
+  UserUpdateInput,
+  EventStoreCredentials,
 } from '../@types/eventStore';
+import { doesNotMatch } from 'assert';
+
+const credentials: EventStoreCredentials = {
+  user: process.env?.EVENTSTORE_USER ?? 'admin',
+  password: process.env?.EVENTSTORE_PASSWORD ?? 'changeit',
+};
 
 const options: EventStoreOptions = {
   url: 'http://localhost:2113',
-  user: process.env?.EVENTSTORE_USER ?? 'admin',
-  password: process.env?.EVENTSTORE_PASSWORD ?? 'changeit',
+  ...credentials,
 };
 const client = new EventStoreClient(options);
 const STREAM_NAME = 'streamName';
@@ -109,28 +116,73 @@ describe('Users', () => {
     groups: ['test', '$readers', '$writers'],
   };
 
-  test('[GET Users]', async () => {
+  const userUpdateInput: UserUpdateInput = {
+    fullName: 'Edited Test User',
+    role: UserRole.OPS,
+    groups: ['$readers', '$writers'],
+  };
+
+  test('[GET Users]', async (done) => {
     const response = await client.users();
     expect(response.status).toBe(200);
+    done();
   });
 
-  test('[POST User]', async () => {
+  test('[POST User]', async (done) => {
     const response = await client.createUser(userCreateInput);
     expect(response.status).toBe(201);
+    expect(response?.data?.loginName).toBe(userCreateInput.loginName);
+    done();
   });
 
-  test('[GET User]', async () => {
-    const response = await client.users();
+  test('[GET User]', async (done) => {
+    const response = await client.getUser(userCreateInput.loginName);
     expect(response.status).toBe(200);
+    console.log(JSON.stringify(response.data));
+    expect(response?.data?.data?.fullName).toBe(userCreateInput.fullName);
+    expect(response?.data?.data?.groups).toContain(userCreateInput.groups[0]);
+    done();
   });
 
-  test('[DISABLE User]', async () => {
-    const response = await client.users();
+  test('[DISABLE User]', async (done) => {
+    const response = await client.disableUser(userCreateInput.loginName);
     expect(response.status).toBe(200);
+    done();
   });
 
-  test('[ENABLE User]', async () => {
-    const response = await client.users();
+  test('[ENABLE User]', async (done) => {
+    const response = await client.enableUser(userCreateInput.loginName);
     expect(response.status).toBe(200);
+    done();
+  });
+
+  test('[EDIT User]', async (done) => {
+    const response = await client.updateUser(userCreateInput.loginName, userUpdateInput);
+    expect(response.status).toBe(200);
+    expect(response.status).toBe(200);
+    done();
+  });
+
+  test('[RESET User Password]', async (done) => {
+    const newPassword = 'newTestPassword';
+    const response = await client.updateUserPassword(userCreateInput.loginName, newPassword);
+    expect(response.status).toBe(200);
+
+    const eventResponse = await client
+      .setCredentials({
+        user: userCreateInput.loginName,
+        password: newPassword,
+      })
+      .postEvent(STREAM_NAME, EVENT_TYPE, {
+        message: `Posted by ${userCreateInput.loginName}`,
+      });
+    expect(eventResponse.status).toBe(201);
+    done();
+  });
+
+  test('[DEL User]', async (done) => {
+    const response = await client.setCredentials(credentials).deleteUser(userCreateInput.loginName);
+    expect(response.status).toBe(200);
+    done();
   });
 });
