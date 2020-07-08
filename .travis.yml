@@ -21,8 +21,7 @@ branches:
 addons:
   sonarcloud:
     organization: 'katesclau'
-    token:
-      secure: ${SONAR_TOKEN}
+    token: ${SONAR_TOKEN}
 
 jobs:
   include:
