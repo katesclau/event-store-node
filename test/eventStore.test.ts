@@ -1,9 +1,15 @@
 import { get } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import EventStoreClient from '../src/index';
-import { Entry, UserCreateInput, Direction, UserRole } from '../@types/eventStore';
+import {
+  Entry,
+  UserCreateInput,
+  Direction,
+  UserRole,
+  EventStoreOptions,
+} from '../@types/eventStore';
 
-const options = {
+const options: EventStoreOptions = {
   url: 'http://localhost:2113',
   user: process.env?.EVENTSTORE_USER ?? 'admin',
   password: process.env?.EVENTSTORE_PASSWORD ?? 'changeit',
