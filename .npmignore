@@ -1,7 +1,7 @@
 tsconfig.json
 src
 yarn.lock
-tests
+test
 assets
 README.md
 .prettierrc

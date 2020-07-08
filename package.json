@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/katesclau/event-store-node"
+    "url": "git+https://github.com/katesclau/event-store-node.git"
   },
   "scripts": {
     "build": "tsc",
@@ -46,5 +46,12 @@
     "lodash": "^4.17.15",
     "uuid": "^8.2.0",
     "zen-observable": "^0.8.15"
+  },
+  "bugs": {
+    "url": "https://github.com/katesclau/event-store-node/issues"
+  },
+  "homepage": "https://github.com/katesclau/event-store-node#readme",
+  "directories": {
+    "lib": "lib"
   }
 }
