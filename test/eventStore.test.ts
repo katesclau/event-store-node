@@ -55,47 +55,28 @@ describe('Events', () => {
 describe('Subscriptions', () => {
   test('[SUBSCRIBE to Stream]', async () => {
     const id = uuid();
-    const firstSubscription = await client.subscribe(
-      STREAM_NAME,
-      'FIRST_SUBSCRIBER',
-      async (entries: Entry[]) => {
-        expect(entries).toBeTruthy();
-        expect(entries[0]?.eventType).toBe(EVENT_TYPE);
-        const response = await client.ack(
-          STREAM_NAME,
-          'FIRST_SUBSCRIBER',
-          entries.map((entry: Entry) => entry.eventId)
-        );
-        expect(response.status).toBe(202);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        console.log('FIRST_SUBSCRIBER closed');
-      }
-    );
 
-    const secondSubscription = await client.subscribe(
-      STREAM_NAME,
-      'SECONDE_SUBSCRIBER',
+    const getArgs = (
+      eventStreamName: string,
+      subscriberName: string
+    ): [string, string, (entries: Entry[]) => {}] => [
+      eventStreamName,
+      subscriberName,
       async (entries: Entry[]) => {
         expect(entries).toBeTruthy();
         expect(entries[0]?.eventType).toBe(EVENT_TYPE);
         const response = await client.ack(
-          STREAM_NAME,
-          'SECONDE_SUBSCRIBER',
+          eventStreamName,
+          subscriberName,
           entries.map((entry: Entry) => entry.eventId)
         );
         expect(response.status).toBe(202);
       },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        console.log('SECONDE_SUBSCRIBER closed');
-      }
-    );
+    ];
+
+    const firstSubscription = await client.subscribe(...getArgs(STREAM_NAME, 'FIRST_SUBSCRIBER'));
+
+    const secondSubscription = await client.subscribe(...getArgs(STREAM_NAME, 'SECOND_SUBSCRIBER'));
 
     const postResponse = await client.postEvent(STREAM_NAME, EVENT_TYPE, {
       message: '[SUBSCRIBE to Stream]',
