@@ -31,7 +31,6 @@ jobs:
       script:
         - git fetch --no-tags https://github.com/katesclau/event-store-node.git +refs/heads/master:refs/remotes/origin/master
         - sonar-scanner
-        - npx codecov
     - stage: build
       name: 'Build lib'
       script: yarn build
