@@ -8,3 +8,4 @@ README.md
 wait_for_eventstore.sh
 jest.config.json
 docker-compose.yml
+sonar-project.properties
