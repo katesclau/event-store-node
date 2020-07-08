@@ -18,18 +18,8 @@ branches:
     - master
     - dev
 
-addons:
-  sonarcloud:
-    organization: 'katesclau'
-    token: ${SONAR_TOKEN}
-
 jobs:
   include:
-    - stage: codecoverage
-      name: 'Sonarqube gateway'
-      script:
-        - git fetch --no-tags https://github.com/katesclau/event-store-node.git +refs/heads/master:refs/remotes/origin/master
-        - sonar-scanner
     - stage: build
       name: 'Build lib'
       script: yarn build
@@ -45,7 +35,6 @@ jobs:
           branch: master
 
 stages:
-  - codecoverage
   - name: build
     if: branch = master
   - name: npm release
