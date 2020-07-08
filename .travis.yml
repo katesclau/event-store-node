@@ -15,7 +15,10 @@ services:
   - docker
 
 before_install:
-  - docker-compose up -d
+  - docker-compose pull
+  - docker-compose up
+  - docker-compose --version
+  - docker ps
 
 script: echo "Running tests against $(node -v) ..."
 
