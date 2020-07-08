@@ -22,7 +22,7 @@ addons:
   sonarcloud:
     organization: 'katesclau'
     token:
-      secure: $SONAR_TOKEN
+      secure: ${SONAR_TOKEN}
 
 jobs:
   include:
@@ -40,7 +40,7 @@ jobs:
       deploy:
         provider: npm
         email: 'katesclau@gmail.com'
-        api_key: $NPM_API_KEY
+        api_key: ${NPM_API_KEY}
         gem: katesclau/event-store-node
         on:
           branch: master
