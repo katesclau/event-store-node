@@ -1,6 +1,6 @@
 {
   "name": "@katesclau/event-store-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Event Store Node Client (Based on REST API)",
   "main": "src/index.ts",
   "repository": {
