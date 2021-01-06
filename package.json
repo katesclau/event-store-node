@@ -41,7 +41,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "husky": "^4.2.5",
     "lodash": "^4.17.15",
     "uuid": "^8.2.0",
